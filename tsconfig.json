@@ -1,0 +1,28 @@
+{
+  "include": [
+    "code/**/*",
+    "examples"
+  ],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "lib": ["es6", "DOM"],
+    "allowJs": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "strict": true,
+    "rootDir": ".",
+    "removeComments": true,
+    "paths": {
+      "@/*": ["./*"],
+    },
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
+  }
+}
