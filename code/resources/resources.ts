@@ -15,7 +15,6 @@ export class ResourcesStatic {
     this.z_scanner.scan();
   }
 
-  
   get getLogger (): Logger {
     return this.z_logger;
   }

@@ -1,0 +1,8 @@
+resource:
+  name: "Sample Script"
+  description: "Sample Initial Script"
+  version: "1.7.2"
+  type: "script"
+  scripts:
+    - script1.lua
+    - script2.lua

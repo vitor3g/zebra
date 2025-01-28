@@ -5,11 +5,14 @@ import { SString } from "../utils/shared.utils";
 import yaml from "yaml";
 import { Ajv } from "ajv";
 import { manifestSchama } from "../common/manifest-schema";
+import { ResourceStatic } from "./resource";
 
 export interface Resource {
   name?: string;
   scripts: string[];
   author?: string;
+  instance: ResourceStatic;
+  sourceRoot: ResourceFolder;
 }
 
 type ResourceFolder = {
@@ -40,7 +43,7 @@ export class Scanner {
       try {
         const resource = resources[i];
 
-        const manifestPath = path.join(resource.sourceRoot, "manifest.yaml");
+        const manifestPath = path.join(resource.sourceRoot, "manifest.yml");
 
         let rawManifest = fs.readFileSync(manifestPath, "utf8");
         rawManifest = yaml.parse(rawManifest);
@@ -48,12 +51,28 @@ export class Scanner {
         const isManifestValid = this.ajv.compile(manifestSchama);
 
         if (isManifestValid(rawManifest)) {
+          const instance = new ResourceStatic({
+            ...rawManifest.resource,
+            sourceRoot: resource,
+          } as Resource);
+
           resourcesLoaded++;
 
-          this.resources.push(rawManifest.resource as Resource)
+          this.resources.push({
+            ...(rawManifest.resource as Resource),
+            instance: instance,
+            sourceRoot: resource,
+          });
+
+          this.z_resources.getLogger.log(
+            SString("Resource '%s' started", resource.folderName)
+          );
         } else {
           this.z_resources.getLogger.warn(
-            `Resource '${resource.folderName}' has no valid configuration`
+            SString(
+              "Resource %s has no valid configuration",
+              resource.folderName
+            )
           );
         }
       } catch (error) {}
@@ -79,7 +98,7 @@ export class Scanner {
     for (const item of items) {
       if (item.isDirectory()) {
         const folderName = item.name;
-        const manifestPath = path.join(root, folderName, "manifest.yaml");
+        const manifestPath = path.join(root, folderName, "manifest.yml");
 
         if (fs.existsSync(manifestPath)) {
           const sourceRoot = path.join(root, folderName);
