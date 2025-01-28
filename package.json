@@ -1,6 +1,8 @@
 {
   "devDependencies": {
     "@eslint/js": "^9.19.0",
+    "@types/figlet": "^1.7.0",
+    "@types/node": "^22.10.10",
     "globals": "^15.14.0",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3",
@@ -8,8 +10,7 @@
   },
   "name": "zebra",
   "scripts": {
-    "start": "tsx --watch code/main.ts",
-    "examples": "tsx --watch examples/factory/main.ts"
+    "start": "tsx --watch main.ts"
   },
   "version": "1.0.0",
   "main": "index.js",
@@ -17,8 +18,17 @@
   "author": "<Vitor Ribeiro>",
   "license": "MIT",
   "dependencies": {
+    "@stdlib/string-format": "^0.2.2",
     "@typescript-eslint/eslint-plugin": "^8.21.0",
     "@typescript-eslint/parser": "^8.21.0",
-    "eslint": "^9.19.0"
+    "ajv": "^8.17.1",
+    "avj": "^0.0.0",
+    "blessed": "^0.1.81",
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "eslint": "^9.19.0",
+    "figlet": "^1.8.0",
+    "util": "^0.12.5",
+    "yaml": "^2.7.0"
   }
 }
